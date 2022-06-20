@@ -1,12 +1,12 @@
 NAME = minishell
 
-CC = gcc
+CC = gcc -lreadline
 
-CFLAGS = -Wall -Werror -Wextra -MMD 
+CFLAGS = -Wall -Werror -Wextra -MMD -g
 
 INC = minishell.h
 
-SRC	   = main.c 
+SRC	   = main.c utils.c lexer.c env.c handler.c
 
 OBJ = $(patsubst %.c,%.o,$(SRC))
 
