@@ -2,7 +2,7 @@ NAME = minishell
 
 CC = gcc -lreadline
 
-CFLAGS = -Wall -Werror -Wextra -MMD -g
+CFLAGS = -Wall -Werror -Wextra -MMD -g3
 
 INC = minishell.h
 

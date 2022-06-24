@@ -6,7 +6,7 @@
 /*   By: chorse <chorse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 16:14:30 by chorse            #+#    #+#             */
-/*   Updated: 2022/06/19 15:19:21 by chorse           ###   ########.fr       */
+/*   Updated: 2022/06/24 17:12:48 by chorse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ char	*ft_strjoin(char *s1, char *s2)
 	return (str);
 }
 
-
 int	ft_lstsize(t_args *lst)
 {
 	t_args	*s;
@@ -56,53 +55,85 @@ int	ft_lstsize(t_args *lst)
 	return (i);
 }
 
-void ft_create_lst(char *tmp, t_args *args)
+char	*ft_strdup(char *s1)
 {
-	t_args	*new;
+	char	*s2;
+	size_t	i;
 
-	new = ft_lstnew(tmp);
-	args = new;
-	args->next = NULL;
-	if (ft_lstsize(args) > 1)
+	i = 0;
+	s2 = malloc((ft_strlen(s1) + 1) * (sizeof(char)));
+	if (!s2)
+		return (NULL);
+	else
 	{
-		ft_lstadd_back(args, new);
-		args->next = NULL;
+		while (s1[i] != '\0')
+		{
+			s2[i] = s1[i];
+			i++;
+		}
 	}
+	s2[i] = '\0';
+	return (s2);
 }
 
-t_args	*ft_lstnew(void *value)
+t_args	*ft_lstlast(t_args *lst)
 {
-	t_args	*new = NULL;
+	t_args	*tmp;
+
+	tmp = lst;
+	if (tmp == NULL)
+		return (NULL);
+	while (tmp->next)
+		tmp = tmp->next;
+	return (tmp);
+}
+
+
+t_args	*ft_lstnew(void *value, int key)
+{
+	t_args	*new;
 
 	new = malloc(sizeof(t_args));
 	if (new)
 	{
 		new->value = value;
+		new->key = key;
 		new->next = NULL;
+		new->prev = NULL;
 	}
 	return (new);
 }
 
-t_args	*ft_lstlast(t_args *lst)
-{
-	if (lst == NULL)
-		return (NULL);
-	while (lst->next)
-		lst = lst->next;
-	return (lst);
-}
-
-void	ft_lstadd_back(t_args *lst, t_args *new)
+void	ft_lstadd_back(t_args **lst, t_args *new)
 {
 	t_args	*tmp;
 
-	if (lst != NULL && lst != NULL)
+	if (*lst != NULL)
 	{
-		tmp = ft_lstlast(lst);
+		tmp = *lst;
+		tmp = ft_lstlast(*lst);
 		tmp->next = new;
+		new->prev = tmp;
+		return ;
 	}
-	else 
-		lst = new;
+	*lst = new;
+
+}
+
+void ft_create_lst(char *tmp, t_args **args)
+{
+	t_args	*new;
+	char *new_str;
+
+	new_str = ft_strdup(tmp);
+	new = ft_lstnew(new_str, -1);
+	if (!*args)
+	{
+		*args = new;
+		return ;
+	}
+	else
+		ft_lstadd_back(args, new);
 }
 
 int is_space(char c)
