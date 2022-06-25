@@ -6,7 +6,7 @@
 /*   By: chorse <chorse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 15:15:13 by chorse            #+#    #+#             */
-/*   Updated: 2022/06/24 17:33:15 by chorse           ###   ########.fr       */
+/*   Updated: 2022/06/25 15:02:29 by chorse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,39 @@ void handler(t_args *args)
 	tmp = args;
 	while (tmp)
 	{
-		printf("%s|", tmp->value);
+		printf("%s key = %d| ", tmp->value, tmp->key);
 		tmp = tmp->next;
 	}
 }
+
+// int if_env(t_args *args)
+// {
+// 	t_args *tmp;
+// 	int i = 0;
+// 	int y = 0;
+// 	char *env;
+	
+// 	env = malloc(100);
+// 	tmp = args;
+	
+// 	while (tmp)
+// 	{
+// 		i = 0;
+// 		while (i < ft_strlen(tmp->value))
+// 		{
+// 			if (tmp->value[i] == '$' && tmp->key != 1)
+// 			{
+// 				i++;
+// 				while (tmp->value[i])
+// 				{
+// 					env[y] = tmp->value[i];
+// 					y++;
+// 					i++;
+// 				}
+// 				return env;
+// 			}
+// 			i++;	
+// 		}
+// 		tmp = tmp->next;
+// 	}
+// }

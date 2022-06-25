@@ -6,7 +6,7 @@
 /*   By: chorse <chorse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 14:59:05 by chorse            #+#    #+#             */
-/*   Updated: 2022/06/24 18:33:15 by chorse           ###   ########.fr       */
+/*   Updated: 2022/06/25 15:09:11 by chorse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int		ft_strlen(char *s);
 char	*ft_strjoin(char *s1, char *s2);
 void	lexer(t_data *data, t_args **args);
 int		is_space(char c);
-void	ft_create_lst(char *tmp, t_args **args);
+void	ft_create_lst(char *tmp, t_args **args, int key);
 void	ft_lstadd_back(t_args **lst, t_args *new);
 t_args	*ft_lstlast(t_args *lst);
 t_args	*ft_lstnew(void *value, int key);
@@ -63,5 +63,6 @@ void	ft_lstadd_front(t_args **lst, t_args *new);
 void	printf_token_list(t_args *token_list);
 char	*what_env(t_args *args);
 char	*ft_strdup(char *s1);
+int		ft_strcmp(char *s1, char *s2);
 
 #endif

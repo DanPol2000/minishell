@@ -6,11 +6,22 @@
 /*   By: chorse <chorse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 16:14:30 by chorse            #+#    #+#             */
-/*   Updated: 2022/06/24 17:12:48 by chorse           ###   ########.fr       */
+/*   Updated: 2022/06/25 15:09:02 by chorse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+
+int	ft_strcmp(char *s1, char *s2)
+{
+	int i;
+
+	i = 0;
+	while (s1[i] == s2[i] && s1[i] != '\0' && s2[i] != '\0')
+		i++;
+	return (s1[i] - s2[i]);
+}
 
 char	*ft_strjoin(char *s1, char *s2)
 {
@@ -120,13 +131,13 @@ void	ft_lstadd_back(t_args **lst, t_args *new)
 
 }
 
-void ft_create_lst(char *tmp, t_args **args)
+void ft_create_lst(char *tmp, t_args **args, int key)
 {
 	t_args	*new;
 	char *new_str;
 
 	new_str = ft_strdup(tmp);
-	new = ft_lstnew(new_str, -1);
+	new = ft_lstnew(new_str, key);
 	if (!*args)
 	{
 		*args = new;

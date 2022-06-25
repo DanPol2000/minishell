@@ -6,7 +6,7 @@
 /*   By: chorse <chorse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 15:17:22 by chorse            #+#    #+#             */
-/*   Updated: 2022/06/24 18:34:31 by chorse           ###   ########.fr       */
+/*   Updated: 2022/06/25 15:13:31 by chorse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,14 @@ void parser(t_data *data)
 	args = NULL;
 	lexer(data, &args);
 	// printf_token_list(args);
-	// handler(args);
-	s = what_env(args);
-	env = getenv(s);
-	printf("ENV = %s\n", env);
+	if (ft_strcmp(args->value, "echo") == 0)
+	{	
+		s = what_env(args);
+		env = getenv(s);
+		printf("%s\n", env);
+	}
+	else
+		handler(args);
 }
 
 char  *what_env(t_args *args)
@@ -36,12 +40,13 @@ char  *what_env(t_args *args)
 	
 	env = malloc(100);
 	tmp = args;
+	
 	while (tmp)
 	{
 		i = 0;
 		while (i < ft_strlen(tmp->value))
 		{
-			if (tmp->value[i] == '$')
+			if (tmp->value[i] == '$' && tmp->key != 1)
 			{
 				i++;
 				while (tmp->value[i])
@@ -79,41 +84,89 @@ void lexer(t_data *data, t_args **args)
 	int smb = 0;
 	char *tmp;
 	int len = 0;
+	
 
 	len = ft_strlen(data->line);
-	// args = malloc(10000);
 	while (data->line[smb])
 	{
 		tmp = malloc(sizeof(char) * (len + 1));
 		int i = 0;
-		if (is_space(data->line[smb]))
+		int key = 0;
+		if (is_space(data->line[smb])) //skip space
 		{
 			while (is_space(data->line[smb]))
 				smb++;
 		}
-		if (data->line[smb])
-		{			
-			while (data->line[smb] && !is_space(data->line[smb]))
+		if (data->line[smb] && !is_space(data->line[smb])) //check general symbols
+		{
+			if (data->line[smb] != '"' && data->line[smb] != 39)  
 			{
-				if (ft_strlen(tmp) < 1)
+							
+				while (data->line[smb] && !is_space(data->line[smb]))
 				{
-					tmp[i] = data->line[smb];
-					i++;
-					smb++;
+					if (ft_strlen(tmp) < 1)
+					{
+						tmp[i] = data->line[smb];
+						i++;
+						smb++;
+					}
+					else
+					{
+						tmp[i] = data->line[smb];
+						smb++;
+						i++;
+					}
 				}
-				else
+			}
+			if (data->line[smb] == 39 && !is_space(data->line[smb])) //check single_quote
+			{
+				smb++;
+				key = 1;
+				printf("Single_quote\n");
+				while (data->line[smb] && data->line[smb] != 39)
 				{
-					tmp[i] = data->line[smb];
-					smb++;
-					i++;
+					if (ft_strlen(tmp) < 1)
+					{
+						tmp[i] = data->line[smb];
+						i++;
+						smb++;
+					}
+					else
+					{
+						tmp[i] = data->line[smb];
+						smb++;
+						i++;
+					}
 				}
+				smb++;
+			}
+			if (data->line[smb] == '"' && !is_space(data->line[smb])) //check double_quote
+			{
+				smb++;
+				key = 2;
+				printf("Doble_quote\n");
+				while (data->line[smb] && data->line[smb] != '"')
+				{
+					if (ft_strlen(tmp) < 1)
+					{
+						tmp[i] = data->line[smb];
+						i++;
+						smb++;
+					}
+					else
+					{
+						tmp[i] = data->line[smb];
+						smb++;
+						i++;
+					}
+				}
+				smb++;
 			}
 		}
 		smb++;
 		tmp[i] = '\0';
-		printf("STR = %s\n", tmp);
-		ft_create_lst(tmp, args);
-		// printf("%s\n", data->args->value);
+		// printf("STR = %s\n", tmp);
+		ft_create_lst(tmp, args, key);
 		free(tmp);
 	}
 }

@@ -6,7 +6,7 @@ CFLAGS = -Wall -Werror -Wextra -MMD -g3
 
 INC = minishell.h
 
-SRC	   = main.c utils.c lexer.c env.c handler.c
+SRC	   = main.c utils.c lexer.c handler.c
 
 OBJ = $(patsubst %.c,%.o,$(SRC))
 
