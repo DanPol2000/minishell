@@ -6,7 +6,7 @@
 /*   By: chorse <chorse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 14:28:06 by chorse            #+#    #+#             */
-/*   Updated: 2022/06/26 16:52:39 by chorse           ###   ########.fr       */
+/*   Updated: 2022/06/26 18:29:09 by chorse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,9 @@ int main()
 {
 	t_data *data;
 
-	printf("%d\n", g_ask);
+	// printf("%d\n", )
 	data = malloc(sizeof(t_data));
+	data->flag = 0;
 	data->line = readline("\e[1;32mbash$ \e[0;37m");
 	add_history(data->line);
 	parser(data);
@@ -43,6 +44,7 @@ void parser(t_data *data)
 	args = NULL;
 	lexer(data, &args);
 	// printf_token_list(args);
+	// check_first(data, args);
 	s = what_env(args);
 	if (s[0] == '?')
 	{	printf("%d\n", g_ask);
@@ -56,6 +58,7 @@ void parser(t_data *data)
 		check_tokens(args);
 		handler(args);
 	}
+	// printf("FLAG = %d\n", data->flag);
 }
 
 void lexer(t_data *data, t_args **args)
@@ -103,9 +106,9 @@ void lexer(t_data *data, t_args **args)
 				key = 1;
 				if (data->line[smb] == '\0')
 				{
-						write(1, "\33[2K\rLack of second quote\n", 26);
+						write(1, "\rLack of second quote\n", 26);
 						g_ask = 1;
-						printf("G = %d\n", g_ask);
+						// printf("G = %d\n", g_ask);
 						break ;
 				}
 				while (data->line[smb] && data->line[smb] != 39)
@@ -113,9 +116,9 @@ void lexer(t_data *data, t_args **args)
 					
 					if (data->line[smb+1] == '\0')
 					{
-						write(1, "\33[2K\rLack of second quote\n", 26);
+						write(1, "\rLack of second quote\n", 26);
 						g_ask = 1;
-						printf("G = %d\n", g_ask);
+						// printf("G = %d\n", g_ask);
 						break ;
 					}
 					else
@@ -134,7 +137,7 @@ void lexer(t_data *data, t_args **args)
 				key = 2;
 				if (data->line[smb] == '\0')
 				{
-						write(1, "\33[2K\rLack of second quote\n", 26);
+						write(1, "\\rLack of second quote\n", 26);
 						g_ask = 1;
 						printf("G = %d\n", g_ask);
 						break ;

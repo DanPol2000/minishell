@@ -6,7 +6,7 @@
 /*   By: chorse <chorse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 14:59:05 by chorse            #+#    #+#             */
-/*   Updated: 2022/06/26 16:23:21 by chorse           ###   ########.fr       */
+/*   Updated: 2022/06/26 17:13:18 by chorse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ typedef struct s_data
 	t_env	*env_save;
 }	t_data;
 
+void	check_first();
 void	env_check(t_data *data, char **env);
 int		ft_strlen(char *s);
 char	*ft_strjoin(char *s1, char *s2);
