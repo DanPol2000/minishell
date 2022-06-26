@@ -6,7 +6,7 @@
 /*   By: chorse <chorse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 14:59:05 by chorse            #+#    #+#             */
-/*   Updated: 2022/06/25 15:09:11 by chorse           ###   ########.fr       */
+/*   Updated: 2022/06/26 16:23:21 by chorse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,16 @@
 #include <stdlib.h>
 #include <readline/readline.h>
 #include <readline/history.h>
+
+
+# define EMPTY 0
+# define CMD 1
+# define ARG 2
+# define TRUNC 3
+# define APPEND 4
+# define INPUT 5
+# define PIPE 6
+# define END 7
 
 typedef struct s_env
 {
@@ -43,6 +53,7 @@ typedef struct s_args
 typedef struct s_data
 {
 	char	*line;
+	int		flag;
 	t_args	*args;
 	t_env	*env_save;
 }	t_data;
@@ -64,5 +75,7 @@ void	printf_token_list(t_args *token_list);
 char	*what_env(t_args *args);
 char	*ft_strdup(char *s1);
 int		ft_strcmp(char *s1, char *s2);
+int		check_tokens(t_args *head);
+int		is_empty(char *str);
 
 #endif
