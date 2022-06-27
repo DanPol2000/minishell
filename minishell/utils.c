@@ -6,7 +6,7 @@
 /*   By: chorse <chorse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 16:14:30 by chorse            #+#    #+#             */
-/*   Updated: 2022/06/25 15:09:02 by chorse           ###   ########.fr       */
+/*   Updated: 2022/06/27 13:04:45 by chorse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,4 +153,19 @@ int is_space(char c)
 		c == '\n' || c == '\r' || c == '\v')
 		return (1);
 	return (0);
+}
+
+void free_lst(t_args *args)
+{
+	t_args	*head;
+	t_args	*tmp;
+
+	head = args;
+	while (head)
+	{
+		tmp = head;
+		head = head ->next;
+		free(tmp);
+	}
+	free(args);
 }

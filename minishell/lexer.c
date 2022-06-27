@@ -6,7 +6,7 @@
 /*   By: chorse <chorse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 15:17:22 by chorse            #+#    #+#             */
-/*   Updated: 2022/06/26 17:18:47 by chorse           ###   ########.fr       */
+/*   Updated: 2022/06/27 12:59:08 by chorse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,107 +60,108 @@ char  *what_env(t_args *args)
 // 	}
 // }
 
-// void lexer(t_data *data, t_args **args)
-// {
-// 	int smb = 0;
-// 	char *tmp;
-// 	int len = 0;
+void lexer(t_data *data, t_args **args)
+{
+	int smb = 0;
+	char *tmp;
+	int len = 0;
 	
 
-// 	len = ft_strlen(data->line);
-// 	while (data->line[smb])
-// 	{
-// 		tmp = malloc(sizeof(char) * (len + 1));
-// 		int i = 0;
-// 		int key = 0;
-// 		if (is_space(data->line[smb])) //skip space
-// 		{
-// 			while (is_space(data->line[smb]))
-// 				smb++;
-// 		}
-// 		if (data->line[smb] && !is_space(data->line[smb])) //check general symbols
-// 		{
-// 			if (data->line[smb] != '"' && data->line[smb] != 39)  
-// 			{
+	len = ft_strlen(data->line);
+	while (data->line[smb])
+	{
+		tmp = malloc(sizeof(char) * (len + 1));
+		int i = 0;
+		int key = 0;
+		if (is_space(data->line[smb])) //skip space
+		{
+			while (is_space(data->line[smb]))
+				smb++;
+		}
+		if (data->line[smb] && !is_space(data->line[smb])) //check general symbols
+		{
+			if (data->line[smb] != '"' && data->line[smb] != 39)  
+			{
 							
-// 				while (data->line[smb] && !is_space(data->line[smb]))
-// 				{
-// 					if (ft_strlen(tmp) < 1)
-// 					{
-// 						tmp[i] = data->line[smb];
-// 						i++;
-// 						smb++;
-// 					}
-// 					else
-// 					{
-// 						tmp[i] = data->line[smb];
-// 						smb++;
-// 						i++;
-// 					}
-// 				}
-// 			}
-// 			if (data->line[smb] == 39 && !is_space(data->line[smb])) //check single_quote
-// 			{
-// 				smb++;
-// 				key = 1;
-// 				if (data->line[smb] == '\0')
-// 				{
-// 						write(1, "\33[2K\rLack of second quote\n", 26);
-// 						// g_ask = 1;
-// 						exit(0);
-// 				}
-// 				while (data->line[smb] && data->line[smb] != 39)
-// 				{
+				while (data->line[smb] && !is_space(data->line[smb]))
+				{
+					if (ft_strlen(tmp) < 1)
+					{
+						tmp[i] = data->line[smb];
+						i++;
+						smb++;
+					}
+					else
+					{
+						tmp[i] = data->line[smb];
+						smb++;
+						i++;
+					}
+				}
+			}
+			if (data->line[smb] == 39 && !is_space(data->line[smb])) //check single_quote
+			{
+				smb++;
+				key = 1;
+				if (data->line[smb] == '\0')
+				{
+						write(1, "\33[2K\rLack of second quote\n", 26);
+						g_ask = 1;
+						break ;
+				}
+				while (data->line[smb] && data->line[smb] != 39)
+				{
 					
-// 					if (data->line[smb+1] == '\0')
-// 					{
-// 						write(1, "\33[2K\rLack of second quote\n", 26);
-// 						// g_ask = 1;
-// 						exit(0);
-// 					}
-// 					else
-// 					{
-// 						tmp[i] = data->line[smb];
-// 						smb++;
-// 						i++;
-// 					}
-// 				}
+					if (data->line[smb+1] == '\0')
+					{
+						write(1, "\33[2K\rLack of second quote\n", 26);
+						g_ask = 1;
+						break ;
+					}
+					else
+					{
+						tmp[i] = data->line[smb];
+						smb++;
+						i++;
+					}
+				}
 				
-// 				smb++;
-// 			}
-// 			if (data->line[smb] == '"' && !is_space(data->line[smb])) //check double_quote
-// 			{
-// 				smb++;
-// 				key = 2;
-// 				if (data->line[smb] == '\0')
-// 				{
-// 						write(1, "\33[2K\rLack of second quote\n", 26);
-// 						exit(0);
-// 				}
-// 				while (data->line[smb] && data->line[smb] != '"')
-// 				{
-// 					if (data->line[smb+1] == '\0')
-// 					{
-// 						write(1, "\33[2K\rLack of second quote\n", 26);
-// 						exit(0);
-// 					}
-// 					else
-// 					{
-// 						tmp[i] = data->line[smb];
-// 						smb++;
-// 						i++;
-// 					}
-// 				}
-// 				smb++;
-// 			}
-// 		}
-// 		smb++;
-// 		tmp[i] = '\0';
-// 		// printf("STR = %s\n", tmp);
-// 		ft_create_lst(tmp, args, key);
-// 		free(tmp);
-// 	}
-// }
+				smb++;
+			}
+			if (data->line[smb] == '"' && !is_space(data->line[smb])) //check double_quote
+			{
+				smb++;
+				key = 2;
+				if (data->line[smb] == '\0')
+				{
+						write(1, "\33[2K\rLack of second quote\n", 26);
+						g_ask = 1;
+						break ;
+				}
+				while (data->line[smb] && data->line[smb] != '"')
+				{
+					if (data->line[smb+1] == '\0')
+					{
+						write(1, "\33[2K\rLack of second quote\n", 26);
+						g_ask = 1;
+						break ;
+					}
+					else
+					{
+						tmp[i] = data->line[smb];
+						smb++;
+						i++;
+					}
+				}
+				smb++;
+			}
+		}
+		smb++;
+		tmp[i] = '\0';
+		ft_create_lst(tmp, args, key);
+		free(tmp);
+	}
+}
 
 
 int	check_tokens(t_args *head)

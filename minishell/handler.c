@@ -6,7 +6,7 @@
 /*   By: chorse <chorse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 15:15:13 by chorse            #+#    #+#             */
-/*   Updated: 2022/06/26 17:29:01 by chorse           ###   ########.fr       */
+/*   Updated: 2022/06/27 12:39:40 by chorse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void handler(t_args *args)
 	tmp = args;
 	while (tmp)
 	{
-		printf("%s key = %d| ", tmp->value, tmp->key);
+		printf("%s key = %d| \n", tmp->value, tmp->key);
 		tmp = tmp->next;
 	}
 }

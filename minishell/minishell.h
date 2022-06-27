@@ -6,7 +6,7 @@
 /*   By: chorse <chorse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 14:59:05 by chorse            #+#    #+#             */
-/*   Updated: 2022/06/26 17:13:18 by chorse           ###   ########.fr       */
+/*   Updated: 2022/06/27 16:43:06 by chorse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,7 @@
 # define PIPE 6
 # define END 7
 
-typedef struct s_env
-{
-	char			*key;
-	char			*value;
-	struct s_env	*next;
-}	t_env;
+extern int g_ask;
 
 typedef struct s_args
 {
@@ -55,7 +50,6 @@ typedef struct s_data
 	char	*line;
 	int		flag;
 	t_args	*args;
-	t_env	*env_save;
 }	t_data;
 
 void	check_first();
@@ -70,7 +64,7 @@ t_args	*ft_lstlast(t_args *lst);
 t_args	*ft_lstnew(void *value, int key);
 int		ft_lstsize(t_args *lst);
 void	handler(t_args *args);
-void	parser(t_data *data);
+void	parser(t_data *data, t_args *args);
 void	ft_lstadd_front(t_args **lst, t_args *new);
 void	printf_token_list(t_args *token_list);
 char	*what_env(t_args *args);
@@ -78,5 +72,7 @@ char	*ft_strdup(char *s1);
 int		ft_strcmp(char *s1, char *s2);
 int		check_tokens(t_args *head);
 int		is_empty(char *str);
+void	free_lst(t_args *args);
+void	func_ex(int sig);
 
 #endif
