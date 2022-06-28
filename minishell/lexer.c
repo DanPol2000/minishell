@@ -6,7 +6,7 @@
 /*   By: chorse <chorse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 15:17:22 by chorse            #+#    #+#             */
-/*   Updated: 2022/06/27 12:59:08 by chorse           ###   ########.fr       */
+/*   Updated: 2022/06/28 14:55:26 by chorse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,8 +181,8 @@ int	check_tokens(t_args *head)
 			args->key = INPUT;
 		else if (!ft_strcmp(args->value, ">>"))
 			args->key = APPEND;
-		// else if (args->prev == NULL || args->prev->key >= TRUNC)
-		// 	args->key = CMD;
+		else if (args->prev == NULL || args->prev->key >= TRUNC)
+			args->key = CMD;
 		else
 			args->key = ARG;
 		args = args->next;

@@ -6,7 +6,7 @@
 /*   By: chorse <chorse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 14:59:05 by chorse            #+#    #+#             */
-/*   Updated: 2022/06/27 16:43:06 by chorse           ###   ########.fr       */
+/*   Updated: 2022/06/28 15:51:28 by chorse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ typedef struct s_data
 	t_args	*args;
 }	t_data;
 
+void	rl_replace_line(const char *text, int clear_undo);
 void	check_first();
 void	env_check(t_data *data, char **env);
 int		ft_strlen(char *s);
@@ -74,5 +75,6 @@ int		check_tokens(t_args *head);
 int		is_empty(char *str);
 void	free_lst(t_args *args);
 void	func_ex(int sig);
+void	cmd_lst_create(t_data *data, t_args *args);
 
 #endif

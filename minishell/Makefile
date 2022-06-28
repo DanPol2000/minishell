@@ -12,11 +12,13 @@ OBJ = $(patsubst %.c,%.o,$(SRC))
 
 D_OBJ = $(patsubst %.c,%.d,$(SRC))
 
+RDLN = -L /Users/chorse/.brew/Cellar/readline/8.1.2/lib -I /Users/chorse/.brew/Cellar/readline/8.1.2/include/ -lreadline
+
 all : $(NAME)
 
 $(NAME) : $(OBJ)
 	@echo "\033[0;33m\n\nCompiling minishell..."
-	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME) $(RDLN)
 	@echo "\n\033[0;36mDone."
 
 %.o : %.c $(INC)

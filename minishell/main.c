@@ -6,7 +6,7 @@
 /*   By: chorse <chorse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 14:28:06 by chorse            #+#    #+#             */
-/*   Updated: 2022/06/27 16:51:47 by chorse           ###   ########.fr       */
+/*   Updated: 2022/06/28 16:07:58 by chorse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,18 @@
 int g_ask;
 int	g_exit_status;
 
+void signal_h(int sig)
+{
+	if (sig == SIGINT)
+	{
+		rl_on_new_line();
+		printf("\n");
+		rl_replace_line("", 1);
+		rl_on_new_line();
+		rl_redisplay();
+	}
+}
+
 int ft_strlen(char *s)
 {
 	int i = 0;
@@ -22,6 +34,18 @@ int ft_strlen(char *s)
 		i++;
 	return (i);
 }
+
+// void	sig_quit_handler(int sig)
+// {
+// 	if (sig == SIGINT)
+// 		printf("\n");
+// 	else
+// 	{
+// 		write(1, "\33[2K\rminishell$", 16);
+// 		exit(0);
+// 	}
+// }
+
 
 int main()
 {
@@ -32,23 +56,23 @@ int main()
 	data = malloc(sizeof(t_data));
 	args = NULL;
 	data->flag = 0;
-	signal(SIGINT, func_ex);
 	signal(SIGQUIT, SIG_IGN);
 	while (1)
 	{
-		if (data->line && data->line[0] != '\0')
-		{	
-			data->line = readline("\e[1;32mbash$ \e[0;37m");
-			add_history(data->line);
-			signal(SIGINT, func_ex);
-			signal(SIGQUIT, SIG_IGN);
-			parser(data, args);
-		}
-		else if (data->line == NULL)
+		signal(SIGINT, signal_h);
+		data->line = readline("\e[1;32mbash$ \e[0;37m");
+		if (data->line == NULL)
 		{
 			write(1, "\33[2K\rminishell$ exit\n", 22);
 			exit(0);
 		}
+		if (data->line && data->line[0] != '\0')
+		{	
+			add_history(data->line);
+			parser(data, args);
+			// cmd_lst_create(data, args);
+		}
+		signal(SIGINT, SIG_IGN);
 		free(data->line);
 		data->line = NULL;
 		free_lst(args);
